@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <springProperty scope="context" name="APP_NAME" source="info.module-name"/>
+    <property name="LOG_PATH" value="/${APP_NAME}/logs"/>
+
+    <!-- properties -->
+    <include resource="logging/logback-properties.xml"/>
+
+    <!-- appender -->
+    <include resource="logging/logback-console-appender.xml"/>
+    <include resource="logging/logback-json-file-appender.xml"/>
+
+    <!-- logger -->
+    <logger name="com.ktds" level="DEBUG"/>
+
+    <!-- root -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="JSON_FILE"/>
+    </root>
+</configuration>

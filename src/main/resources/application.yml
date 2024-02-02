@@ -1,0 +1,21 @@
+server:
+  port: 8082
+
+security:
+  basic:
+    enabled: false
+
+digest:
+  realm:
+   name: digest-realm
+   secrect: digest-secrect
+   validitySeconds: 300
+
+
+info:
+  module-name: digest-api
+  log-file-name: app.log
+
+# logging
+logging.config: classpath:logging/logback-local.xml
+

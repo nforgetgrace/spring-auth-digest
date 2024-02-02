@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ktds.smartx.digest.api.domain.auth.dao.AuthMapper">
+	<select id="findByMemberId"
+			resultType="com.ktds.smartx.digest.common.security.domain.AuthMember">
+		SELECT A.SERVICE_NUMBER, A.MEMBER_PASSWORD, A.ROLES
+		FROM TB_MEMBER AS A
+		WHERE A.SERVICE_NUMBER = #{request};
+	</select>
+
+	<select id="findByRefreshToken"
+			resultType="com.ktds.smartx.digest.common.security.dto.AuthRefreshTokenDto">
+		SELECT A.SERVICE_NUMBER AS member_id,
+			   A.member_password AS member_pw,
+			   A.member_refresh AS refresh_token
+		FROM TB_MEMBER AS A
+		WHERE A.MEMBER_REFRESH = #{refresh_token};
+	</select>
+
+	<update id="updateRefreshToken" parameterType="com.ktds.smartx.digest.common.security.dto.AuthRefreshTokenDto">
+		UPDATE TB_MEMBER
+		SET MEMBER_REFRESH  = #{refresh_token}
+		WHERE 1=1 AND SERVICE_NUMBER = #{service_number};
+	</update>
+
+	<update id="join" parameterType="String">
+		INSERT INTO TB_MEMBER
+			(member_id, member_password, roles)
+		values(#{service_number}, #{password}, #{role});
+	</update>
+</mapper>
